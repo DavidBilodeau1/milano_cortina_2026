@@ -27,31 +27,42 @@ _LOGGER = logging.getLogger(__name__)
 
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
     """Validate the user input allows us to connect.
-    
+
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
     locale = data[CONF_LOCALE]
-    
+
     # Test API connection
     url = f"{API_BASE_URL}/{locale}/{API_ENDPOINT}"
-    
-    async with aiohttp.ClientSession() as session:
+
+    headers = {
+        "User-Agent": "HomeAssistant/Milano-Cortina-2026",
+        "Accept": "application/json",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
+    connector = aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True)
+    timeout = aiohttp.ClientTimeout(total=30, connect=10, sock_read=20)
+
+    async with aiohttp.ClientSession(connector=connector) as session:
         try:
-            async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as response:
+            async with session.get(url, headers=headers, timeout=timeout, ssl=False) as response:
                 if response.status != 200:
                     raise CannotConnect(f"API returned status {response.status}")
-                
-                data = await response.json()
-                
+
+                response_data = await response.json()
+
                 # Validate response structure
-                if "medalStandings" not in data:
+                if "medalStandings" not in response_data:
                     raise InvalidData("Invalid API response structure")
-                    
+
         except aiohttp.ClientError as err:
+            _LOGGER.error("Failed to connect to Olympics API: %s", err)
             raise CannotConnect(f"Failed to connect to API: {err}") from err
         except Exception as err:
+            _LOGGER.error("Unexpected error connecting to Olympics API: %s", err)
             raise CannotConnect(f"Unexpected error: {err}") from err
-    
+
     return {"title": f"Milano Cortina 2026 ({locale})"}
 
 

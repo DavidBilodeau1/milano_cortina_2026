@@ -44,25 +44,36 @@ class OlympicsDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch data from API."""
         url = f"{API_BASE_URL}/{self.locale}/{API_ENDPOINT}"
-        
+
+        headers = {
+            "User-Agent": "HomeAssistant/Milano-Cortina-2026",
+            "Accept": "application/json",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        connector = aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True)
+        timeout = aiohttp.ClientTimeout(total=30, connect=10, sock_read=20)
+
         try:
-            async with async_timeout.timeout(10):
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(url) as response:
+            async with async_timeout.timeout(35):
+                async with aiohttp.ClientSession(connector=connector) as session:
+                    async with session.get(url, headers=headers, timeout=timeout, ssl=False) as response:
                         if response.status != 200:
                             raise UpdateFailed(
                                 f"Error communicating with API: {response.status}"
                             )
-                        
+
                         data = await response.json()
-                        
+
                         if "medalStandings" not in data:
                             raise UpdateFailed("Invalid API response structure")
-                        
+
                         return data
-                        
+
         except aiohttp.ClientError as err:
+            _LOGGER.error("Error communicating with Olympics API: %s", err)
             raise UpdateFailed(f"Error communicating with API: {err}") from err
         except Exception as err:
+            _LOGGER.error("Unexpected error fetching Olympics data: %s", err)
             raise UpdateFailed(f"Unexpected error: {err}") from err
 
