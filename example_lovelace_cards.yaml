@@ -1,0 +1,146 @@
+# Example Lovelace Card Configurations for Milano Cortina 2026 Olympics
+
+# ============================================
+# Medal Standings Table (using Markdown Card)
+# ============================================
+type: markdown
+content: |
+  ## 🏅 Milano Cortina 2026 Medal Standings
+  
+  | Rank | Country | 🥇 | 🥈 | 🥉 | Total |
+  |:----:|---------|:--:|:--:|:--:|:-----:|
+  {% set ns = namespace(countries=[]) -%}
+  {% for state in states.sensor if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+    {% set ns.countries = ns.countries + [(state.attributes.rank, state.attributes.country_name, state.attributes.gold, state.attributes.silver, state.attributes.bronze, state.state)] -%}
+  {% endfor -%}
+  {% for country in ns.countries | sort(attribute='0') -%}
+  | {{ country[0] }} | {{ country[1] }} | {{ country[2] }} | {{ country[3] }} | {{ country[4] }} | {{ country[5] }} |
+  {% endfor %}
+  
+  *Last update: {{ states('sensor.milano_cortina_2026_event_info') }} of {{ state_attr('sensor.milano_cortina_2026_event_info', 'total_events') }} events completed*
+
+---
+
+# ============================================
+# Event Progress Card
+# ============================================
+type: entities
+title: 🏔️ Milano Cortina 2026 Progress
+entities:
+  - entity: sensor.milano_cortina_2026_event_info
+    name: Events Completed
+    icon: mdi:calendar-check
+  - type: attribute
+    entity: sensor.milano_cortina_2026_event_info
+    attribute: total_events
+    name: Total Events
+    icon: mdi:calendar-star
+  - type: attribute
+    entity: sensor.milano_cortina_2026_event_info
+    attribute: last_update
+    name: Last Update
+    icon: mdi:clock-outline
+
+---
+
+# ============================================
+# Top 5 Countries (using Entities Card)
+# ============================================
+type: entities
+title: 🥇 Top 5 Medal Leaders
+entities:
+  - type: custom:auto-entities
+    filter:
+      include:
+        - entity_id: sensor.*_medals
+          attributes:
+            rank: <= 5
+      exclude: []
+    sort:
+      method: attribute
+      attribute: rank
+    card:
+      type: custom:fold-entity-row
+      head:
+        type: section
+        label: Medal Leaders
+
+---
+
+# ============================================
+# Specific Country Detail Card (Example: Italy)
+# ============================================
+type: markdown
+content: |
+  ## 🇮🇹 Italy Medal Details
+  
+  **Total Medals: {{ states('sensor.italy_medals') }}**
+  - 🥇 Gold: {{ state_attr('sensor.italy_medals', 'gold') }}
+  - 🥈 Silver: {{ state_attr('sensor.italy_medals', 'silver') }}
+  - 🥉 Bronze: {{ state_attr('sensor.italy_medals', 'bronze') }}
+  
+  **Rank: #{{ state_attr('sensor.italy_medals', 'rank') }}**
+  
+  ### Medal Winners:
+  {% for winner in state_attr('sensor.italy_medals', 'medal_winners') %}
+  - **{{ winner.athlete }}** - {{ winner.medal }} in {{ winner.event }}
+  {% endfor %}
+
+---
+
+# ============================================
+# Disciplines Breakdown (Example: Italy)
+# ============================================
+type: markdown
+content: |
+  ## 🎿 Italy - Medals by Discipline
+  
+  | Discipline | 🥇 | 🥈 | 🥉 | Total |
+  |------------|:--:|:--:|:--:|:-----:|
+  {% for discipline in state_attr('sensor.italy_medals', 'disciplines') %}
+  | {{ discipline.name }} | {{ discipline.gold }} | {{ discipline.silver }} | {{ discipline.bronze }} | {{ discipline.total }} |
+  {% endfor %}
+
+---
+
+# ============================================
+# All Medal Winners List
+# ============================================
+type: markdown
+content: |
+  ## 🏆 Recent Medal Winners
+  
+  {% set ns = namespace(winners=[]) -%}
+  {% for state in states.sensor if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+    {% if state.attributes.medal_winners -%}
+      {% for winner in state.attributes.medal_winners -%}
+        {% set ns.winners = ns.winners + [(winner.date, winner.medal, winner.athlete, state.attributes.country_code, winner.event)] -%}
+      {% endfor -%}
+    {% endif -%}
+  {% endfor -%}
+  {% for winner in ns.winners | sort(attribute='0', reverse=true) | list | batch(10) | first -%}
+  - **{{ winner[2] }}** ({{ winner[3] }}) - {{ winner[1] }} in {{ winner[4] }}
+  {% endfor %}
+
+---
+
+# ============================================
+# Compact Medal Count Grid
+# ============================================
+type: grid
+columns: 3
+square: false
+cards:
+  - type: statistic
+    entity: sensor.italy_medals
+    name: Italy
+    icon: mdi:flag
+  - type: statistic
+    entity: sensor.usa_medals
+    name: USA
+    icon: mdi:flag
+  - type: statistic
+    entity: sensor.canada_medals
+    name: Canada
+    icon: mdi:flag
+

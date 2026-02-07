@@ -1,0 +1,168 @@
+# ============================================
+# MEDAL TABLE CARD - Perfect for Dashboard
+# ============================================
+# This card displays all countries with their medal counts
+# in a clean, sortable table format
+
+type: markdown
+content: |
+  ## 🏔️ Milano Cortina 2026 - Medal Standings
+  
+  | Rank | Country | 🥇 Gold | 🥈 Silver | 🥉 Bronze | 📊 Total |
+  |:----:|:--------|:-------:|:---------:|:---------:|:--------:|
+  {%- set ns = namespace(countries=[]) -%}
+  {%- for state in states.sensor -%}
+    {%- if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+      {%- set ns.countries = ns.countries + [(
+          state.attributes.rank,
+          state.attributes.country_name,
+          state.attributes.gold,
+          state.attributes.silver,
+          state.attributes.bronze,
+          state.state | int
+        )] -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for country in ns.countries | sort(attribute='0') -%}
+  | {{ country[0] }} | {{ country[1] }} | {{ country[2] }} | {{ country[3] }} | {{ country[4] }} | **{{ country[5] }}** |
+  {%- endfor %}
+  
+  ---
+  
+  **Events Completed:** {{ states('sensor.milano_cortina_2026_event_info') }} / {{ state_attr('sensor.milano_cortina_2026_event_info', 'total_events') }}
+  
+  *Last updated: {{ state_attr('sensor.milano_cortina_2026_event_info', 'last_update') }}*
+
+---
+
+# ============================================
+# DETAILED MEDAL TABLE WITH DISCIPLINES
+# ============================================
+# This shows medals broken down by discipline for each country
+
+type: markdown
+content: |
+  ## 🎿 Medal Details by Country & Discipline
+  
+  {%- for state in states.sensor | sort(attribute='attributes.rank') -%}
+    {%- if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+  
+  ### {{ state.attributes.rank }}. {{ state.attributes.country_name }} ({{ state.attributes.country_code }})
+  **Total Medals: {{ state.state }}** (🥇 {{ state.attributes.gold }} | 🥈 {{ state.attributes.silver }} | 🥉 {{ state.attributes.bronze }})
+  
+  | Discipline | 🥇 | 🥈 | 🥉 | Total |
+  |------------|:--:|:--:|:--:|:-----:|
+      {%- for discipline in state.attributes.disciplines %}
+  | {{ discipline.name }} | {{ discipline.gold }} | {{ discipline.silver }} | {{ discipline.bronze }} | {{ discipline.total }} |
+      {%- endfor %}
+  
+    {%- endif -%}
+  {%- endfor %}
+
+---
+
+# ============================================
+# MEDAL WINNERS LIST
+# ============================================
+# Shows all individual medal winners with details
+
+type: markdown
+content: |
+  ## 🏆 All Medal Winners
+  
+  {%- set ns = namespace(winners=[]) -%}
+  {%- for state in states.sensor -%}
+    {%- if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+      {%- if state.attributes.medal_winners -%}
+        {%- for winner in state.attributes.medal_winners -%}
+          {%- set ns.winners = ns.winners + [(
+              winner.date,
+              winner.medal,
+              winner.athlete,
+              state.attributes.country_code,
+              winner.event,
+              winner.discipline
+            )] -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  
+  {%- for winner in ns.winners | sort(attribute='0', reverse=true) -%}
+  - **{{ winner[2] }}** ({{ winner[3] }}) - 
+    {%- if winner[1] == 'GOLD' %} 🥇
+    {%- elif winner[1] == 'SILVER' %} 🥈
+    {%- elif winner[1] == 'BRONZE' %} 🥉
+    {%- endif %} {{ winner[1] }} in {{ winner[4] }} - *{{ winner[0] }}*
+  {%- endfor %}
+
+---
+
+# ============================================
+# COMPACT DASHBOARD VIEW
+# ============================================
+# A compact view showing top countries with medal counts
+
+type: vertical-stack
+cards:
+  - type: markdown
+    content: |
+      ## 🏅 Milano Cortina 2026
+      **{{ states('sensor.milano_cortina_2026_event_info') }}** / {{ state_attr('sensor.milano_cortina_2026_event_info', 'total_events') }} events completed
+  
+  - type: markdown
+    content: |
+      | # | Country | 🥇 | 🥈 | 🥉 | Total |
+      |:-:|---------|:--:|:--:|:--:|:-----:|
+      {%- set ns = namespace(countries=[]) -%}
+      {%- for state in states.sensor -%}
+        {%- if 'medals' in state.entity_id and state.entity_id != 'sensor.milano_cortina_2026_event_info' -%}
+          {%- set ns.countries = ns.countries + [(
+              state.attributes.rank,
+              state.attributes.country_name,
+              state.attributes.gold,
+              state.attributes.silver,
+              state.attributes.bronze,
+              state.state | int
+            )] -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for country in ns.countries | sort(attribute='0') | list | batch(10) | first -%}
+      | {{ country[0] }} | {{ country[1] }} | {{ country[2] }} | {{ country[3] }} | {{ country[4] }} | **{{ country[5] }}** |
+      {%- endfor %}
+
+---
+
+# ============================================
+# SINGLE COUNTRY FOCUS CARD
+# ============================================
+# Replace 'italy' with your country of interest
+
+type: markdown
+content: |
+  ## 🇮🇹 Italy - Detailed Medal Report
+  
+  ### Overall Standing
+  - **Rank:** #{{ state_attr('sensor.italy_medals', 'rank') }}
+  - **Total Medals:** {{ states('sensor.italy_medals') }}
+    - 🥇 Gold: {{ state_attr('sensor.italy_medals', 'gold') }}
+    - 🥈 Silver: {{ state_attr('sensor.italy_medals', 'silver') }}
+    - 🥉 Bronze: {{ state_attr('sensor.italy_medals', 'bronze') }}
+  
+  ### Medals by Discipline
+  {%- for discipline in state_attr('sensor.italy_medals', 'disciplines') %}
+  - **{{ discipline.name }}**: {{ discipline.total }} medals (🥇{{ discipline.gold }} 🥈{{ discipline.silver }} 🥉{{ discipline.bronze }})
+  {%- endfor %}
+  
+  ### Medal Winners
+  {%- for winner in state_attr('sensor.italy_medals', 'medal_winners') %}
+  - **{{ winner.athlete }}**
+    - Event: {{ winner.event }}
+    - Medal: 
+    {%- if winner.medal == 'GOLD' %} 🥇 Gold
+    {%- elif winner.medal == 'SILVER' %} 🥈 Silver
+    {%- elif winner.medal == 'BRONZE' %} 🥉 Bronze
+    {%- endif %}
+    - Date: {{ winner.date }}
+  {%- endfor %}
+

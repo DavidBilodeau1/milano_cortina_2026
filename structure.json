@@ -1,0 +1,439 @@
+{
+  "medalStandings": {
+    "medalsTable": [
+      {
+        "disciplines": [
+          {
+            "code": "ALP",
+            "name": "Alpine Skiing",
+            "gold": 0,
+            "silver": 1,
+            "bronze": 1,
+            "total": 2,
+            "medalWinners": [
+              {
+                "disciplineCode": "ALP",
+                "eventCode": "ALPMDH----------------------------",
+                "eventCategory": "Men",
+                "eventDescription": "Men's Downhill",
+                "eventOrder": 6,
+                "medalType": "ME_SILVER",
+                "official": true,
+                "competitorCode": "25998",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "FRANZONI Giovanni",
+                "competitorDisplayPrintInitialName": "FRANZONI G",
+                "competitorDisplayTvName": "Giovanni FRANZONI",
+                "competitorDisplayPrintName": "FRANZONI Giovanni",
+                "competitorGender": "M",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "ITA",
+                "teamType": ""
+              },
+              {
+                "disciplineCode": "ALP",
+                "eventCode": "ALPMDH----------------------------",
+                "eventCategory": "Men",
+                "eventDescription": "Men's Downhill",
+                "eventOrder": 6,
+                "medalType": "ME_BRONZE",
+                "official": true,
+                "competitorCode": "26002",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "PARIS Dominik",
+                "competitorDisplayPrintInitialName": "PARIS D",
+                "competitorDisplayTvName": "Dominik PARIS",
+                "competitorDisplayPrintName": "PARIS Dominik",
+                "competitorGender": "M",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "ITA",
+                "teamType": ""
+              }
+            ]
+          },
+          {
+            "code": "SSK",
+            "name": "Speed Skating",
+            "gold": 1,
+            "silver": 0,
+            "bronze": 0,
+            "total": 1,
+            "medalWinners": [
+              {
+                "disciplineCode": "SSK",
+                "eventCode": "SSKW3000M-------------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 3000m",
+                "eventOrder": 4,
+                "medalType": "ME_GOLD",
+                "official": true,
+                "competitorCode": "22165",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "LOLLOBRIGIDA Francesca",
+                "competitorDisplayPrintInitialName": "LOLLOBRIGIDA F",
+                "competitorDisplayTvName": "Francesca LOLLOBRIGIDA",
+                "competitorDisplayPrintName": "LOLLOBRIGIDA Francesca",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "ITA",
+                "teamType": ""
+              }
+            ]
+          }
+        ],
+        "organisation": "ITA",
+        "description": "Italy",
+        "longDescription": "Italy",
+        "nameOrder": 1020,
+        "longNameOrder": 1020,
+        "protocolOrder": 95,
+        "rank": 1,
+        "rankEqual": false,
+        "sortRank": 1,
+        "rankTotal": 1,
+        "rankTotalEqual": false,
+        "sortTotalRank": 1,
+        "medalsNumber": [
+          {
+            "type": "Men",
+            "gold": 0,
+            "silver": 1,
+            "bronze": 1,
+            "total": 2
+          },
+          {
+            "type": "Women",
+            "gold": 1,
+            "silver": 0,
+            "bronze": 0,
+            "total": 1
+          },
+          {
+            "type": "Total",
+            "gold": 1,
+            "silver": 1,
+            "bronze": 1,
+            "total": 3
+          }
+        ]
+      },
+      {
+        "disciplines": [
+          {
+            "code": "CCS",
+            "name": "Cross-Country Skiing",
+            "gold": 1,
+            "silver": 1,
+            "bronze": 0,
+            "total": 2,
+            "medalWinners": [
+              {
+                "disciplineCode": "CCS",
+                "eventCode": "CCSWSKIATHLN----------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 10km + 10km Skiathlon",
+                "eventOrder": 3,
+                "medalType": "ME_GOLD",
+                "official": true,
+                "competitorCode": "30739",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "KARLSSON Frida",
+                "competitorDisplayPrintInitialName": "KARLSSON F",
+                "competitorDisplayTvName": "Frida KARLSSON",
+                "competitorDisplayPrintName": "KARLSSON Frida",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "SWE",
+                "teamType": ""
+              },
+              {
+                "disciplineCode": "CCS",
+                "eventCode": "CCSWSKIATHLN----------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 10km + 10km Skiathlon",
+                "eventOrder": 3,
+                "medalType": "ME_SILVER",
+                "official": true,
+                "competitorCode": "30707",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "ANDERSSON Ebba",
+                "competitorDisplayPrintInitialName": "ANDERSSON E",
+                "competitorDisplayTvName": "Ebba ANDERSSON",
+                "competitorDisplayPrintName": "ANDERSSON Ebba",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "SWE",
+                "teamType": ""
+              }
+            ]
+          }
+        ],
+        "organisation": "SWE",
+        "description": "Sweden",
+        "longDescription": "Sweden",
+        "nameOrder": 1990,
+        "longNameOrder": 2000,
+        "protocolOrder": 179,
+        "rank": 2,
+        "rankEqual": false,
+        "sortRank": 2,
+        "rankTotal": 2,
+        "rankTotalEqual": true,
+        "sortTotalRank": 2,
+        "medalsNumber": [
+          {
+            "type": "Women",
+            "gold": 1,
+            "silver": 1,
+            "bronze": 0,
+            "total": 2
+          },
+          {
+            "type": "Total",
+            "gold": 1,
+            "silver": 1,
+            "bronze": 0,
+            "total": 2
+          }
+        ]
+      },
+      {
+        "disciplines": [
+          {
+            "code": "ALP",
+            "name": "Alpine Skiing",
+            "gold": 1,
+            "silver": 0,
+            "bronze": 0,
+            "total": 1,
+            "medalWinners": [
+              {
+                "disciplineCode": "ALP",
+                "eventCode": "ALPMDH----------------------------",
+                "eventCategory": "Men",
+                "eventDescription": "Men's Downhill",
+                "eventOrder": 6,
+                "medalType": "ME_GOLD",
+                "official": true,
+                "competitorCode": "48729",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "von ALLMEN Franjo",
+                "competitorDisplayPrintInitialName": "von ALLMEN F",
+                "competitorDisplayTvName": "Franjo von ALLMEN",
+                "competitorDisplayPrintName": "von ALLMEN Franjo",
+                "competitorGender": "M",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "SUI",
+                "teamType": ""
+              }
+            ]
+          }
+        ],
+        "organisation": "SUI",
+        "description": "Switzerland",
+        "longDescription": "Switzerland",
+        "nameOrder": 2000,
+        "longNameOrder": 2010,
+        "protocolOrder": 180,
+        "rank": 3,
+        "rankEqual": false,
+        "sortRank": 3,
+        "rankTotal": 4,
+        "rankTotalEqual": true,
+        "sortTotalRank": 4,
+        "medalsNumber": [
+          {
+            "type": "Men",
+            "gold": 1,
+            "silver": 0,
+            "bronze": 0,
+            "total": 1
+          },
+          {
+            "type": "Total",
+            "gold": 1,
+            "silver": 0,
+            "bronze": 0,
+            "total": 1
+          }
+        ]
+      },
+      {
+        "disciplines": [
+          {
+            "code": "CCS",
+            "name": "Cross-Country Skiing",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 1,
+            "total": 1,
+            "medalWinners": [
+              {
+                "disciplineCode": "CCS",
+                "eventCode": "CCSWSKIATHLN----------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 10km + 10km Skiathlon",
+                "eventOrder": 3,
+                "medalType": "ME_BRONZE",
+                "official": true,
+                "competitorCode": "42290",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "WENG Heidi",
+                "competitorDisplayPrintInitialName": "WENG H",
+                "competitorDisplayTvName": "Heidi WENG",
+                "competitorDisplayPrintName": "WENG Heidi",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "NOR",
+                "teamType": ""
+              }
+            ]
+          },
+          {
+            "code": "SSK",
+            "name": "Speed Skating",
+            "gold": 0,
+            "silver": 1,
+            "bronze": 0,
+            "total": 1,
+            "medalWinners": [
+              {
+                "disciplineCode": "SSK",
+                "eventCode": "SSKW3000M-------------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 3000m",
+                "eventOrder": 4,
+                "medalType": "ME_SILVER",
+                "official": true,
+                "competitorCode": "42383",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "WIKLUND Ragne",
+                "competitorDisplayPrintInitialName": "WIKLUND R",
+                "competitorDisplayTvName": "Ragne WIKLUND",
+                "competitorDisplayPrintName": "WIKLUND Ragne",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "NOR",
+                "teamType": ""
+              }
+            ]
+          }
+        ],
+        "organisation": "NOR",
+        "description": "Norway",
+        "longDescription": "Norway",
+        "nameOrder": 1530,
+        "longNameOrder": 1510,
+        "protocolOrder": 139,
+        "rank": 4,
+        "rankEqual": false,
+        "sortRank": 4,
+        "rankTotal": 2,
+        "rankTotalEqual": true,
+        "sortTotalRank": 3,
+        "medalsNumber": [
+          {
+            "type": "Women",
+            "gold": 0,
+            "silver": 1,
+            "bronze": 1,
+            "total": 2
+          },
+          {
+            "type": "Total",
+            "gold": 0,
+            "silver": 1,
+            "bronze": 1,
+            "total": 2
+          }
+        ]
+      },
+      {
+        "disciplines": [
+          {
+            "code": "SSK",
+            "name": "Speed Skating",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 1,
+            "total": 1,
+            "medalWinners": [
+              {
+                "disciplineCode": "SSK",
+                "eventCode": "SSKW3000M-------------------------",
+                "eventCategory": "Women",
+                "eventDescription": "Women's 3000m",
+                "eventOrder": 4,
+                "medalType": "ME_BRONZE",
+                "official": true,
+                "competitorCode": "44030",
+                "competitorType": "A",
+                "competitorOrder": 1,
+                "competitorDisplayName": "MALTAIS Valerie",
+                "competitorDisplayPrintInitialName": "MALTAIS V",
+                "competitorDisplayTvName": "Valerie MALTAIS",
+                "competitorDisplayPrintName": "MALTAIS Valerie",
+                "competitorGender": "F",
+                "date": "2026-02-07",
+                "class": "",
+                "organisation": "CAN",
+                "teamType": ""
+              }
+            ]
+          }
+        ],
+        "organisation": "CAN",
+        "description": "Canada",
+        "longDescription": "Canada",
+        "nameOrder": 380,
+        "longNameOrder": 380,
+        "protocolOrder": 37,
+        "rank": 5,
+        "rankEqual": false,
+        "sortRank": 5,
+        "rankTotal": 4,
+        "rankTotalEqual": true,
+        "sortTotalRank": 5,
+        "medalsNumber": [
+          {
+            "type": "Women",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 1,
+            "total": 1
+          },
+          {
+            "type": "Total",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 1,
+            "total": 1
+          }
+        ]
+      }
+    ],
+    "eventInfo": {
+      "totalEvents": 116,
+      "lastEvents": "SSKW3000M-------------------------",
+      "dateTime": "2026-02-07T16:21:40+00:00",
+      "finishedEvents": 3
+    }
+  },
+  "competitionCode": ""
+}

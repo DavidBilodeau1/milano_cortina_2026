@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Milano Cortina 2026 Olympics",
+        "description": "Set up the Milano Cortina 2026 Olympics integration to track medal counts.",
+        "data": {
+          "locale": "Language / Langue"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the Olympics API",
+      "invalid_data": "Invalid data received from API",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "This locale is already configured"
+    }
+  }
+}
+

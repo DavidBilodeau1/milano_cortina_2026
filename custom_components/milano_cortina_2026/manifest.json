@@ -1,0 +1,13 @@
+{
+  "domain": "milano_cortina_2026",
+  "name": "Milano Cortina 2026 Olympics",
+  "codeowners": ["@DavidBilodeau1"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/DavidBilodeau1/olympics",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "1.0.0"
+}
+

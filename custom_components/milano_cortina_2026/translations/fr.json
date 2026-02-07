@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Jeux Olympiques Milano Cortina 2026",
+        "description": "Configurez l'intégration des Jeux Olympiques Milano Cortina 2026 pour suivre le décompte des médailles.",
+        "data": {
+          "locale": "Langue"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Échec de la connexion à l'API des Jeux Olympiques",
+      "invalid_data": "Données invalides reçues de l'API",
+      "unknown": "Erreur inattendue"
+    },
+    "abort": {
+      "already_configured": "Cette langue est déjà configurée"
+    }
+  }
+}
+
