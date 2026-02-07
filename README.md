@@ -1,4 +1,8 @@
-# Milano Cortina 2026 Olympics - Home Assistant Integration
+# Milano Cortina 2026 Olympics
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![GitHub Release](https://img.shields.io/github/release/DavidBilodeau1/milano_cortina_2026.svg)](https://github.com/DavidBilodeau1/milano_cortina_2026/releases)
+[![License](https://img.shields.io/github/license/DavidBilodeau1/milano_cortina_2026.svg)](LICENSE)
 
 A custom Home Assistant integration to track medal counts and results from the Milano Cortina 2026 Winter Olympics.
 
@@ -15,6 +19,24 @@ A custom Home Assistant integration to track medal counts and results from the M
 - 📈 Event progress tracking (total events vs finished events)
 
 ## Installation
+
+### HACS (Recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Click on "Integrations"
+3. Click the three dots in the top right corner
+4. Select "Custom repositories"
+5. Add this repository URL: `https://github.com/DavidBilodeau1/milano_cortina_2026`
+6. Select category: "Integration"
+7. Click "Add"
+8. Find "Milano Cortina 2026 Olympics" in the integration list
+9. Click "Download"
+10. Restart Home Assistant
+11. Go to Settings → Devices & Services → Add Integration
+12. Search for "Milano Cortina 2026 Olympics"
+13. Select your preferred language (English or French)
+
+### Manual Installation
 
 1. Copy the `custom_components/milano_cortina_2026` folder to your Home Assistant `custom_components` directory
 2. Restart Home Assistant
