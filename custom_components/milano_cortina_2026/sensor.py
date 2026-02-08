@@ -42,20 +42,35 @@ async def async_setup_entry(
 ) -> None:
     """Set up the sensor platform."""
     coordinator: OlympicsDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
-    
-    entities: list[SensorEntity] = []
-    
-    # Add event info sensor
-    entities.append(OlympicsEventInfoSensor(coordinator, entry))
-    
-    # Add a sensor for each country in the medal standings
-    if coordinator.data and "medalStandings" in coordinator.data:
+
+    # Track which country codes we've already created entities for
+    created_countries: set[str] = set()
+
+    def add_new_countries() -> None:
+        """Add sensors for any new countries that have won medals."""
+        if not coordinator.data or "medalStandings" not in coordinator.data:
+            return
+
         medal_table = coordinator.data["medalStandings"].get("medalsTable", [])
-        
+        new_entities: list[SensorEntity] = []
+
         for country_data in medal_table:
-            entities.append(OlympicsCountryMedalSensor(coordinator, entry, country_data))
-    
-    async_add_entities(entities)
+            country_code = country_data.get("organisation")
+            if country_code and country_code not in created_countries:
+                created_countries.add(country_code)
+                new_entities.append(OlympicsCountryMedalSensor(coordinator, entry, country_data))
+
+        if new_entities:
+            async_add_entities(new_entities)
+
+    # Add event info sensor (only once)
+    async_add_entities([OlympicsEventInfoSensor(coordinator, entry)])
+
+    # Add initial country sensors
+    add_new_countries()
+
+    # Register listener to add new countries when data updates
+    coordinator.async_add_listener(add_new_countries)
 
 
 class OlympicsEventInfoSensor(CoordinatorEntity, SensorEntity):
