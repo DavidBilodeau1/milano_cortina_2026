@@ -27,31 +27,31 @@ card:
         else x;
 
     - name: Country
-      data: attributes.country_name
+      data: country_name
       align: left
       modify: |
         '<b>' + x + '</b>'
 
     - name: Code
-      data: attributes.country_code
+      data: country_code
       align: center
 
     - name: Gold
-      data: attributes.gold
+      data: gold
       align: center
       modify: |
         if (x > 0) '🥇 ' + x;
         else x;
 
     - name: Silver
-      data: attributes.silver
+      data: silver
       align: center
       modify: |
         if (x > 0) '🥈 ' + x;
         else x;
 
     - name: Bronze
-      data: attributes.bronze
+      data: bronze
       align: center
       modify: |
         if (x > 0) '🥉 ' + x;
@@ -86,20 +86,20 @@ filter:
 card:
   type: custom:flex-table-card
   title: 🎿 Medal Details by Discipline
-  sort_by: attributes.rank
+  sort_by: rank
   columns:
     - name: Rank
-      data: attributes.rank
+      data: rank
       align: center
 
     - name: Country
-      data: attributes.country_name
+      data: country_name
       align: left
       modify: |
         '<b>' + x + '</b> (' + parseFloat('$entity.attributes.country_code') + ')'
 
     - name: Disciplines
-      data: attributes.disciplines
+      data: disciplines
       align: left
       modify: |
         if (!Array.isArray(x)) return '-';
@@ -137,26 +137,26 @@ card:
   type: custom:flex-table-card
   title: 🏆 Top 10 Medal Leaders
   max_rows: 10
-  sort_by: attributes.rank
+  sort_by: rank
   columns:
     - name: '#'
-      data: attributes.rank
+      data: rank
       align: center
 
     - name: Country
-      data: attributes.country_name
+      data: country_name
       align: left
 
     - name: '🥇'
-      data: attributes.gold
+      data: gold
       align: center
 
     - name: '🥈'
-      data: attributes.silver
+      data: silver
       align: center
 
     - name: '🥉'
-      data: attributes.bronze
+      data: bronze
       align: center
 
     - name: Total
@@ -187,25 +187,25 @@ card:
   title: 🏆 Recent Medal Winners
   columns:
     - name: Athlete
-      data: attributes.medal_winners
+      data: medal_winners
       align: left
       modify: |
         if (!Array.isArray(x)) return '-';
         return x.map(w => w.athlete).join('<br>');
 
     - name: Country
-      data: attributes.country_code
+      data: country_code
       align: center
 
     - name: Event
-      data: attributes.medal_winners
+      data: medal_winners
       align: left
       modify: |
         if (!Array.isArray(x)) return '-';
         return x.map(w => w.event).join('<br>');
 
     - name: Medal
-      data: attributes.medal_winners
+      data: medal_winners
       align: center
       modify: |
         if (!Array.isArray(x)) return '-';
@@ -217,7 +217,7 @@ card:
         }).join('<br>');
 
     - name: Date
-      data: attributes.medal_winners
+      data: medal_winners
       align: center
       modify: |
         if (!Array.isArray(x)) return '-';
@@ -246,22 +246,22 @@ cards:
         - sensor.italy_medals
     columns:
       - name: Rank
-        data: attributes.rank
+        data: rank
         align: center
         modify: '<b>#$${x}</b>'
 
       - name: Gold
-        data: attributes.gold
+        data: gold
         align: center
         modify: '🥇 $${x}'
 
       - name: Silver
-        data: attributes.silver
+        data: silver
         align: center
         modify: '🥈 $${x}'
 
       - name: Bronze
-        data: attributes.bronze
+        data: bronze
         align: center
         modify: '🥉 $${x}'
 
@@ -281,35 +281,35 @@ cards:
         - sensor.italy_medals
     columns:
       - name: Discipline
-        data: attributes.disciplines
+        data: disciplines
         align: left
         modify: |
           if (!Array.isArray(x)) return '-';
           return x.map(d => d.name).join('<br>');
 
       - name: '🥇'
-        data: attributes.disciplines
+        data: disciplines
         align: center
         modify: |
           if (!Array.isArray(x)) return '-';
           return x.map(d => d.gold).join('<br>');
 
       - name: '🥈'
-        data: attributes.disciplines
+        data: disciplines
         align: center
         modify: |
           if (!Array.isArray(x)) return '-';
           return x.map(d => d.silver).join('<br>');
 
       - name: '🥉'
-        data: attributes.disciplines
+        data: disciplines
         align: center
         modify: |
           if (!Array.isArray(x)) return '-';
           return x.map(d => d.bronze).join('<br>');
 
       - name: Total
-        data: attributes.disciplines
+        data: disciplines
         align: center
         modify: |
           if (!Array.isArray(x)) return '-';
@@ -335,26 +335,26 @@ filter:
 card:
   type: custom:flex-table-card
   title: 🏅 Medal Standings (Color-Coded)
-  sort_by: attributes.rank
+  sort_by: rank
   columns:
     - name: Rank
-      data: attributes.rank
+      data: rank
       align: center
 
     - name: Country
-      data: attributes.country_name
+      data: country_name
       align: left
 
     - name: Gold
-      data: attributes.gold
+      data: gold
       align: center
 
     - name: Silver
-      data: attributes.silver
+      data: silver
       align: center
 
     - name: Bronze
-      data: attributes.bronze
+      data: bronze
       align: center
 
     - name: Total
