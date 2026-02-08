@@ -1,0 +1,370 @@
+# ============================================
+# MEDAL STANDINGS - Flex Table Card with Auto-Entities
+# ============================================
+# Shows all countries ranked by medal count
+# Requires:
+#   - https://github.com/custom-cards/flex-table-card
+#   - https://github.com/thomasloven/lovelace-auto-entities
+
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: "sensor.*_medals"
+  exclude:
+    - entity_id: "sensor.milano_cortina_2026_event_info"
+card:
+  type: custom:flex-table-card
+  title: 🏅 Milano Cortina 2026 - Medal Standings
+  sort_by: attributes.rank
+  columns:
+    - name: Rank
+      data: attributes.rank
+      align: center
+      modify: |
+        if (x == 1) '🥇 ' + x;
+        else if (x == 2) '🥈 ' + x;
+        else if (x == 3) '🥉 ' + x;
+        else x;
+
+    - name: Country
+      data: attributes.country_name
+      align: left
+      modify: |
+        '<b>' + x + '</b>'
+
+    - name: Code
+      data: attributes.country_code
+      align: center
+
+    - name: Gold
+      data: attributes.gold
+      align: center
+      modify: |
+        if (x > 0) '🥇 ' + x;
+        else x;
+
+    - name: Silver
+      data: attributes.silver
+      align: center
+      modify: |
+        if (x > 0) '🥈 ' + x;
+        else x;
+
+    - name: Bronze
+      data: attributes.bronze
+      align: center
+      modify: |
+        if (x > 0) '🥉 ' + x;
+        else x;
+
+    - name: Total
+      data: state
+      align: center
+      modify: |
+        '<b>' + x + '</b>'
+
+  css:
+    table+: 'border-collapse: collapse; width: 100%;'
+    tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+    tbody tr td:nth-child(1): 'min-width: 60px; font-weight: bold;'
+    tbody tr td:nth-child(2): 'min-width: 120px;'
+    tbody tr td:nth-child(7): 'background-color: var(--table-row-background-color); font-size: 1.2em;'
+
+---
+
+# ============================================
+# MEDAL DETAILS BY COUNTRY - Flex Table Card with Auto-Entities
+# ============================================
+# Shows detailed medal breakdown by discipline for each country
+
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: "sensor.*_medals"
+  exclude:
+    - entity_id: "sensor.milano_cortina_2026_event_info"
+card:
+  type: custom:flex-table-card
+  title: 🎿 Medal Details by Discipline
+  sort_by: attributes.rank
+  columns:
+    - name: Rank
+      data: attributes.rank
+      align: center
+
+    - name: Country
+      data: attributes.country_name
+      align: left
+      modify: |
+        '<b>' + x + '</b> (' + parseFloat('$entity.attributes.country_code') + ')'
+
+    - name: Disciplines
+      data: attributes.disciplines
+      align: left
+      modify: |
+        if (!Array.isArray(x)) return '-';
+        return x.map(d =>
+          d.name + ': ' +
+          (d.gold > 0 ? '🥇' + d.gold + ' ' : '') +
+          (d.silver > 0 ? '🥈' + d.silver + ' ' : '') +
+          (d.bronze > 0 ? '🥉' + d.bronze : '')
+        ).join('<br>');
+
+    - name: Total
+      data: state
+      align: center
+      modify: |
+        '<b>' + x + '</b>'
+
+  css:
+    table+: 'border-collapse: collapse; width: 100%;'
+    tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+    tbody tr td:nth-child(3): 'font-size: 0.9em; line-height: 1.5;'
+
+---
+
+# ============================================
+# TOP 10 COUNTRIES - Compact Flex Table with Auto-Entities
+# ============================================
+
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: "sensor.*_medals"
+  exclude:
+    - entity_id: "sensor.milano_cortina_2026_event_info"
+card:
+  type: custom:flex-table-card
+  title: 🏆 Top 10 Medal Leaders
+  max_rows: 10
+  sort_by: attributes.rank
+  columns:
+    - name: '#'
+      data: attributes.rank
+      align: center
+
+    - name: Country
+      data: attributes.country_name
+      align: left
+
+    - name: '🥇'
+      data: attributes.gold
+      align: center
+
+    - name: '🥈'
+      data: attributes.silver
+      align: center
+
+    - name: '🥉'
+      data: attributes.bronze
+      align: center
+
+    - name: Total
+      data: state
+      align: center
+      modify: '<b>$${x}</b>'
+
+  css:
+    table+: 'padding: 0px; width: 100%;'
+    tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+
+---
+
+# ============================================
+# MEDAL WINNERS LIST - Flex Table Card with Auto-Entities
+# ============================================
+# Shows all individual medal winners with details
+# Note: This displays medal_winners array data from each country sensor
+
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: "sensor.*_medals"
+  exclude:
+    - entity_id: "sensor.milano_cortina_2026_event_info"
+card:
+  type: custom:flex-table-card
+  title: 🏆 Recent Medal Winners
+  columns:
+    - name: Athlete
+      data: attributes.medal_winners
+      align: left
+      modify: |
+        if (!Array.isArray(x)) return '-';
+        return x.map(w => w.athlete).join('<br>');
+
+    - name: Country
+      data: attributes.country_code
+      align: center
+
+    - name: Event
+      data: attributes.medal_winners
+      align: left
+      modify: |
+        if (!Array.isArray(x)) return '-';
+        return x.map(w => w.event).join('<br>');
+
+    - name: Medal
+      data: attributes.medal_winners
+      align: center
+      modify: |
+        if (!Array.isArray(x)) return '-';
+        return x.map(w => {
+          if (w.medal === 'GOLD') return '🥇';
+          if (w.medal === 'SILVER') return '🥈';
+          if (w.medal === 'BRONZE') return '🥉';
+          return w.medal;
+        }).join('<br>');
+
+    - name: Date
+      data: attributes.medal_winners
+      align: center
+      modify: |
+        if (!Array.isArray(x)) return '-';
+        return x.map(w => w.date).join('<br>');
+
+  css:
+    table+: 'border-collapse: collapse; width: 100%;'
+    tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+    tbody tr td:nth-child(1): 'font-weight: bold;'
+    tbody tr td:nth-child(4): 'font-size: 1.3em;'
+
+---
+
+# ============================================
+# SPECIFIC COUNTRY DETAIL - Flex Table Card
+# ============================================
+# Shows medals for a specific country (e.g., Italy)
+# Change the entity to match your country of interest
+
+type: vertical-stack
+cards:
+  - type: custom:flex-table-card
+    title: 🇮🇹 Italy - Medal Summary
+    entities:
+      include:
+        - sensor.italy_medals
+    columns:
+      - name: Rank
+        data: attributes.rank
+        align: center
+        modify: '<b>#$${x}</b>'
+
+      - name: Gold
+        data: attributes.gold
+        align: center
+        modify: '🥇 $${x}'
+
+      - name: Silver
+        data: attributes.silver
+        align: center
+        modify: '🥈 $${x}'
+
+      - name: Bronze
+        data: attributes.bronze
+        align: center
+        modify: '🥉 $${x}'
+
+      - name: Total
+        data: state
+        align: center
+        modify: '<b>$${x}</b>'
+
+    css:
+      table+: 'width: 100%;'
+      tbody tr td: 'font-size: 1.2em;'
+
+  - type: custom:flex-table-card
+    title: Medals by Discipline
+    entities:
+      include:
+        - sensor.italy_medals
+    columns:
+      - name: Discipline
+        data: attributes.disciplines
+        align: left
+        modify: |
+          if (!Array.isArray(x)) return '-';
+          return x.map(d => d.name).join('<br>');
+
+      - name: '🥇'
+        data: attributes.disciplines
+        align: center
+        modify: |
+          if (!Array.isArray(x)) return '-';
+          return x.map(d => d.gold).join('<br>');
+
+      - name: '🥈'
+        data: attributes.disciplines
+        align: center
+        modify: |
+          if (!Array.isArray(x)) return '-';
+          return x.map(d => d.silver).join('<br>');
+
+      - name: '🥉'
+        data: attributes.disciplines
+        align: center
+        modify: |
+          if (!Array.isArray(x)) return '-';
+          return x.map(d => d.bronze).join('<br>');
+
+      - name: Total
+        data: attributes.disciplines
+        align: center
+        modify: |
+          if (!Array.isArray(x)) return '-';
+          return x.map(d => '<b>' + d.total + '</b>').join('<br>');
+
+    css:
+      table+: 'width: 100%;'
+      tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+
+---
+
+# ============================================
+# ADVANCED: Color-Coded Medal Standings with Auto-Entities
+# ============================================
+# Highlights top 3 countries with different colors
+
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: "sensor.*_medals"
+  exclude:
+    - entity_id: "sensor.milano_cortina_2026_event_info"
+card:
+  type: custom:flex-table-card
+  title: 🏅 Medal Standings (Color-Coded)
+  sort_by: attributes.rank
+  columns:
+    - name: Rank
+      data: attributes.rank
+      align: center
+
+    - name: Country
+      data: attributes.country_name
+      align: left
+
+    - name: Gold
+      data: attributes.gold
+      align: center
+
+    - name: Silver
+      data: attributes.silver
+      align: center
+
+    - name: Bronze
+      data: attributes.bronze
+      align: center
+
+    - name: Total
+      data: state
+      align: center
+
+  css:
+    table+: 'border-collapse: collapse; width: 100%;'
+    tbody tr:hover: 'background-color: var(--primary-color) !important; opacity: 0.5;'
+    tbody tr:nth-child(1): 'background-color: gold; color: black; font-weight: bold;'
+    tbody tr:nth-child(2): 'background-color: silver; color: black; font-weight: bold;'
+    tbody tr:nth-child(3): 'background-color: #CD7F32; color: white; font-weight: bold;'
+
