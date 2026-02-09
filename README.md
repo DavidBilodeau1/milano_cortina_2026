@@ -6,18 +6,6 @@
 
 A custom Home Assistant integration to track medal counts and results from the Milano Cortina 2026 Winter Olympics.
 
-## Features
-
-- 🥇 Track medal counts for all countries
-- 🌍 Support for English (ENG) and French (FRA) locales
-- 📊 Detailed medal information including:
-  - Total medals (gold, silver, bronze)
-  - Medal breakdown by discipline
-  - Individual medal winners with athlete names and events
-  - Country rankings
-- 🔄 Automatic updates every 5 minutes
-- 📈 Event progress tracking (total events vs finished events)
-
 ## Installation
 
 ### HACS (Recommended)
