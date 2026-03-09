@@ -2,20 +2,22 @@
   "config": {
     "step": {
       "user": {
-        "title": "Jeux Olympiques Milano Cortina 2026",
-        "description": "Configurez l'intégration des Jeux Olympiques Milano Cortina 2026 pour suivre le décompte des médailles.",
+        "title": "Milano Cortina 2026",
+        "description": "Configurez l'intégration Milano Cortina 2026 pour suivre les médailles olympiques et paralympiques.",
         "data": {
-          "locale": "Langue"
+          "locale": "Langue",
+          "track_olympics": "Suivre les Jeux Olympiques",
+          "track_paralympics": "Suivre les Jeux Paralympiques"
         }
       }
     },
     "error": {
-      "cannot_connect": "Échec de la connexion à l'API des Jeux Olympiques",
-      "invalid_data": "Données invalides reçues de l'API",
+      "cannot_connect": "Échec de la connexion à l'API",
+      "invalid_data": "Données invalides reçues de l'API ou aucun type d'événement sélectionné",
       "unknown": "Erreur inattendue"
     },
     "abort": {
-      "already_configured": "Cette langue est déjà configurée"
+      "already_configured": "Cette configuration est déjà configurée"
     }
   }
 }

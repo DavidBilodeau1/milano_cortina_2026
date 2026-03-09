@@ -4,10 +4,17 @@ DOMAIN = "milano_cortina_2026"
 
 # Configuration
 CONF_LOCALE = "locale"
+CONF_TRACK_OLYMPICS = "track_olympics"
+CONF_TRACK_PARALYMPICS = "track_paralympics"
 
 # API
-API_BASE_URL = "https://www.olympics.com/wmr-owg2026/competition/api"
+API_OLYMPICS_BASE_URL = "https://www.olympics.com/wmr-owg2026/competition/api"
+API_PARALYMPICS_BASE_URL = "https://www.olympics.com/wmr-para-owg2026/competition/api"
 API_ENDPOINT = "medals"
+
+# Event types
+EVENT_TYPE_OLYMPICS = "olympics"
+EVENT_TYPE_PARALYMPICS = "paralympics"
 
 # Locales
 LOCALE_ENGLISH = "ENG"
@@ -30,4 +37,5 @@ ATTR_MEDAL_WINNERS = "medal_winners"
 ATTR_TOTAL_EVENTS = "total_events"
 ATTR_FINISHED_EVENTS = "finished_events"
 ATTR_LAST_UPDATE = "last_update"
+ATTR_EVENT_TYPE = "event_type"
 
